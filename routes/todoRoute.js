@@ -35,4 +35,6 @@ router.get('/sort/completed-date', todoController.sortTodosByCompletedDate);
 // New Route: Toggle Todo Completed State
 router.patch('/:id/toggle-completed', todoController.toggleTodoCompleted);
 
+router.post('/assign', todoController.assignTodoToProject);
+
 module.exports = router;

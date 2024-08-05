@@ -95,7 +95,22 @@ const Todo = {
   
       return result.modifiedCount > 0 ? newCompletedState : null;
     },
+
+    assignTodoToProject: async (db, todoName, projectName) => {
+      const project = await db.collection('projects').findOne({ projectName: projectName });
   
+      if (!project) {
+        throw new Error('Project not found');
+      }
+  
+      const result = await db.collection(Todo.collection).updateOne(
+        { todoName: todoName },
+        { $set: { projectId: project._id } }
+      );
+  
+      return result.modifiedCount > 0;
+    },
+
 };
 
 module.exports = Todo;

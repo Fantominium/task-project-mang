@@ -141,7 +141,22 @@ const toggleTodoCompleted = async (req, res) => {
   }
 };
 
+const assignTodoToProject = async (req, res) => {
+  const { todoName, projectName } = req.body;
 
+  try {
+    const db = mongoGet();
+    const success = await Todo.assignTodoToProject(db, todoName, projectName);
+    
+    if (!success) {
+      return res.status(404).json({ error: 'Todo not found or already assigned to a project' });
+    }
+
+    res.status(200).json({ message: 'Todo assigned to project successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message || 'Failed to assign todo to project' });
+  }
+};
 
 module.exports = {
   createTodo,
@@ -154,4 +169,5 @@ module.exports = {
   sortTodosByCreateDate,
   sortTodosByCompletedDate,
   toggleTodoCompleted,
+  assignTodoToProject,
 };
