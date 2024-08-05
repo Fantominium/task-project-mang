@@ -23,5 +23,13 @@ router.put('/:id', projectController.updateProject);
 // Delete project
 router.delete('/:id', projectController.deleteProject);
 
+//Sort by Due Date
+router.get('/sort/due-date', projectController.sortProjectsByDueDate);
+
+//Sort by Create Date
+router.get('/sort/create-date', projectController.sortProjectsByCreateDate);
+
+
+
 
 module.exports = router;

@@ -90,6 +90,40 @@ const searchTodos = async (req, res) => {
   }
 };
 
+//Sort Todos by Due Date
+const sortTodosByDueDate = async (req, res) => {
+  try {
+    const db = mongoGet();
+    const todos = await Todo.sortTodosByDueDate(db);
+    res.status(200).json(todos);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to sort todos by due date' });
+  }
+};
+
+//Sort Todos by Create Date
+const sortTodosByCreateDate = async (req, res) => {
+  try {
+    const db = mongoGet();
+    const todos = await Todo.sortTodosByCreateDate(db);
+    res.status(200).json(todos);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to sort todos by create date' });
+  }
+};
+
+//Sort Todos by Completed Date
+const sortTodosByCompletedDate = async (req, res) => {
+  try {
+    const db = mongoGet();
+    const todos = await Todo.sortTodosByCompletedDate(db);
+    res.status(200).json(todos);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to sort todos by completed date' });
+  }
+};
+
+
 module.exports = {
   createTodo,
   getTodos,
@@ -97,4 +131,7 @@ module.exports = {
   updateTodo,
   deleteTodo,
   searchTodos,
+  sortTodosByDueDate,
+  sortTodosByCreateDate,
+  sortTodosByCompletedDate,
 };

@@ -23,6 +23,13 @@ router.put('/:id', todoController.updateTodo);
 // Delete Todo
 router.delete('/:id', todoController.deleteTodo);
 
+//Sort Todos by Due Date
+router.get('/sort/due-date', todoController.sortTodosByDueDate);
 
+//Sort Todos by Create Date
+router.get('/sort/create-date', todoController.sortTodosByCreateDate);
+
+//Sort Todos by Completed Date
+router.get('/sort/completed-date', todoController.sortTodosByCompletedDate);
 
 module.exports = router;

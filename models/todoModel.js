@@ -48,6 +48,34 @@ const Todo = {
     const result = await db.collection(Todo.collection).deleteOne({ _id: ObjectId.createFromHexString(id) });
     return result.deletedCount > 0;
   },
+
+   //Sort Todos by Due Date
+   sortTodosByDueDate: async (db) => {
+    return await db
+      .collection(Todo.collection)
+      .find()
+      .sort({ todoDueDate: -1 })
+      .toArray();
+  },
+
+  //Sort Todos by Create Date
+  sortTodosByCreateDate: async (db) => {
+    return await db
+      .collection(Todo.collection)
+      .find()
+      .sort({ todoCreateDate: -1 })
+      .toArray();
+  },
+
+    //Sort Todos by Completed Date
+    sortTodosByCompletedDate: async (db) => {
+      return await db
+        .collection(Todo.collection)
+        .find()
+        .sort({ todoCompletedDate: -1 })
+        .toArray();
+    },
+
 };
 
 module.exports = Todo;

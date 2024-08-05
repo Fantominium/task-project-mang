@@ -90,6 +90,32 @@ const searchProjects = async (req, res) => {
     }
   };
 
+  //Sort Todos by Due Date
+const sortProjectsByDueDate = async (req, res) => {
+  try {
+    const db = mongoGet();
+    const projects = await Project.sortProjectsByDueDate(db);
+    res.status(200).json(projects);
+  } catch (error) {
+    console.error("Error sorting by dd: ", error);
+
+    res.status(500).json({ error: 'Failed to sort todos by due date' });
+  }
+};
+
+//Sort Todos by Create Date
+const sortProjectsByCreateDate = async (req, res) => {
+  try {
+    const db = mongoGet();
+    const projects = await Project.sortProjectsByCreateDate(db);
+    res.status(200).json(projects);
+  } catch (error) {
+    console.error("Error sorting by cd: ", error);
+
+    res.status(500).json({ error: 'Failed to sort projects by create date' });
+  }
+};
+
 module.exports = {
   createProject,
   getProjects,
@@ -97,4 +123,7 @@ module.exports = {
   updateProject,
   deleteProject,
   searchProjects,
+  sortProjectsByDueDate,
+  sortProjectsByCreateDate,
+
 };
