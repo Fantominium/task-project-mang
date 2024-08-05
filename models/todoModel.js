@@ -75,7 +75,27 @@ const Todo = {
         .sort({ todoCompletedDate: -1 })
         .toArray();
     },
-
+    toggleTodoCompleted: async (db, id) => {
+      const todo = await db.collection(Todo.collection).findOne({ _id: ObjectId.createFromHexString(id) });
+  
+      if (!todo) {
+        return null;
+      }
+  
+      const newCompletedState = !todo.todoCompleted;
+      const updateData = {
+        todoCompleted: newCompletedState,
+        todoCompletedDate: newCompletedState ? new Date() : null,
+      };
+  
+      const result = await db.collection(Todo.collection).updateOne(
+        { _id: ObjectId.createFromHexString(id) },
+        { $set: updateData }
+      );
+  
+      return result.modifiedCount > 0 ? newCompletedState : null;
+    },
+  
 };
 
 module.exports = Todo;

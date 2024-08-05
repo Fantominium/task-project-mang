@@ -123,6 +123,25 @@ const sortTodosByCompletedDate = async (req, res) => {
   }
 };
 
+const toggleTodoCompleted = async (req, res) => {
+  try {
+    const db = mongoGet();
+    const newCompletedState = await Todo.toggleTodoCompleted(db, req.params.id);
+    
+    if (newCompletedState === null) {
+      return res.status(404).json({ error: 'Todo not found' });
+    }
+
+    res.status(200).json({ 
+      message: 'Todo completion status toggled successfully',
+      todoCompleted: newCompletedState 
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to toggle todo completed state' });
+  }
+};
+
+
 
 module.exports = {
   createTodo,
@@ -134,4 +153,5 @@ module.exports = {
   sortTodosByDueDate,
   sortTodosByCreateDate,
   sortTodosByCompletedDate,
+  toggleTodoCompleted,
 };

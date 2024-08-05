@@ -32,4 +32,7 @@ router.get('/sort/create-date', todoController.sortTodosByCreateDate);
 //Sort Todos by Completed Date
 router.get('/sort/completed-date', todoController.sortTodosByCompletedDate);
 
+// New Route: Toggle Todo Completed State
+router.patch('/:id/toggle-completed', todoController.toggleTodoCompleted);
+
 module.exports = router;
