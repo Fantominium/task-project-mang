@@ -7,7 +7,11 @@ const createProject = async (req, res) => {
   try {
     const db = mongoGet();
     const project = await Project.createProject(db, req.body);
-    res.status(201).json(project);
+    if (project){
+      res.status(200).json(project);
+      } else {
+        res.status(500).json({ error: 'Failed to create project' });
+      }
   } catch (error) {
     res.status(500).json({ error: 'Failed to create project' });
   }

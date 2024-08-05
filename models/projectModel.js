@@ -11,7 +11,7 @@ const Project = {
       projectStartDate: new Date(),
       projectEndDate: project.projectEndDate ? new Date(project.projectEndDate) : null,
     });
-    return result.ops[0];
+    return result;
   },
 
   getAllProjects: async (db) => {
