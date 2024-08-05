@@ -14,7 +14,8 @@ const Todo = {
       todoCreateDate: new Date(),
       todoCompletedDate: null,
     });
-    return result.ops[0];
+
+    return result;
   },
 
   getAllTodos: async (db) => {

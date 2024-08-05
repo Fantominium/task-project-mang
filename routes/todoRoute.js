@@ -5,6 +5,9 @@ const todoController = require('../controllers/todoController');
 
 const router = express.Router();
 
+// Search Todo
+router.get('/search', todoController.searchTodos);
+
 // Create
 router.post('/', todoController.createTodo);
 
@@ -20,7 +23,6 @@ router.put('/:id', todoController.updateTodo);
 // Delete Todo
 router.delete('/:id', todoController.deleteTodo);
 
-// Search Todo
-router.get('/search', todoController.searchTodos);
+
 
 module.exports = router;

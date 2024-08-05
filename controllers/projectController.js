@@ -64,17 +64,27 @@ const deleteProject = async (req, res) => {
 
 // Search Projects by Name
 const searchProjects = async (req, res) => {
-  try {
-    const db = mongoGet();
-    const projects = await db.collection(Project.collection).find({
-      projectName: { $regex: req.query.name, $options: 'i' }
-    }).toArray();
-    
-    res.status(200).json(projects);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to search projects' });
-  }
-};
+    try {
+      const db = mongoGet();
+  
+      // Convert query parameter to a string and trim any whitespace
+      const searchQuery = String(req.query.name || '').trim();
+  
+      // Validate
+      if (!searchQuery || searchQuery.length === 0) {
+        return res.status(400).json({ error: 'Search query parameter "name" is required and must not be empty.' });
+      }
+  
+      const projects = await db.collection(Project.collection).find({
+        projectName: { $regex: searchQuery, $options: 'i' }
+      }).toArray();
+  
+      res.status(200).json(projects);
+    } catch (error) {
+      console.error('Error during todo search:', error); // Debug log
+      res.status(500).json({ error: 'Failed to search todos', details: error.message });
+    }
+  };
 
 module.exports = {
   createProject,

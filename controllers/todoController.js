@@ -7,7 +7,11 @@ const createTodo = async (req, res) => {
   try {
     const db = mongoGet();
     const todo = await Todo.createTodo(db, req.body);
-    res.status(201).json(todo);
+    if (todo){
+    res.status(200).json(todo);
+    } else {
+      res.status(500).json({ error: 'Failed to create todo' });
+    }
   } catch (error) {
     res.status(500).json({ error: 'Failed to create todo' });
   }
@@ -66,13 +70,23 @@ const deleteTodo = async (req, res) => {
 const searchTodos = async (req, res) => {
   try {
     const db = mongoGet();
+
+    // Convert query parameter to a string and trim any whitespace
+    const searchQuery = String(req.query.name || '').trim();
+
+    // Validate
+    if (!searchQuery || searchQuery.length === 0) {
+      return res.status(400).json({ error: 'Search query parameter "name" is required and must not be empty.' });
+    }
+
     const todos = await db.collection(Todo.collection).find({
-      todoName: { $regex: req.query.name, $options: 'i' }
+      todoName: { $regex: searchQuery, $options: 'i' }
     }).toArray();
-    
+
     res.status(200).json(todos);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to search todos' });
+    console.error('Error during todo search:', error); // Debug log
+    res.status(500).json({ error: 'Failed to search todos', details: error.message });
   }
 };
 

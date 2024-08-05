@@ -5,6 +5,9 @@ const projectController = require('../controllers/projectController');
 
 const router = express.Router();
 
+// Search project
+router.get('/search', projectController.searchProjects);
+
 // Create project
 router.post('/', projectController.createProject);
 
@@ -20,7 +23,5 @@ router.put('/:id', projectController.updateProject);
 // Delete project
 router.delete('/:id', projectController.deleteProject);
 
-// Search project
-router.get('/search', projectController.searchProjects);
 
 module.exports = router;
