@@ -39,34 +39,24 @@ const Project = {
     const result = await db.collection(Project.collection).deleteOne({ _id: ObjectId.createFromHexString(id) });
     return result.deletedCount > 0;
   },
-  //Sort Todos by Due Date
-  sortProjectsByDueDate: async (db) => {
-    return await db
-      .collection(Project.collection)
-      .find()
-      .sort({ todoDueDate: -1 })
-      .toArray();
-  },
 
-  //Sort Todos by Create Date
+  //Sort by Create Date
   sortProjectsByCreateDate: async (db) => {
     return await db
       .collection(Project.collection)
       .find()
-      .sort({ todoCreateDate: -1 })
+      .sort({ projectStartDate: -1 })
       .toArray();
   },
 
-    //Sort Todos by Completed Date
+    //Sort by Completed Date
     sortProjectsByCompletedDate: async (db) => {
       return await db
         .collection(Project.collection)
         .find()
-        .sort({ todoCompletedDate: -1 })
+        .sort({ projectEndDate: -1 })
         .toArray();
     },
-
-
 
 };
 

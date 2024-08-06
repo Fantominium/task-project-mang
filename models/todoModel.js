@@ -49,7 +49,7 @@ const Todo = {
     return result.deletedCount > 0;
   },
 
-   //Sort Todos by Due Date
+   //Sort by Due Date
    sortTodosByDueDate: async (db) => {
     return await db
       .collection(Todo.collection)
@@ -58,7 +58,7 @@ const Todo = {
       .toArray();
   },
 
-  //Sort Todos by Create Date
+  //Sort by Create Date
   sortTodosByCreateDate: async (db) => {
     return await db
       .collection(Todo.collection)
@@ -67,7 +67,7 @@ const Todo = {
       .toArray();
   },
 
-    //Sort Todos by Completed Date
+    //Sort by Completed Date
     sortTodosByCompletedDate: async (db) => {
       return await db
         .collection(Todo.collection)
